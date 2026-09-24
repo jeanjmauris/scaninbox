@@ -283,24 +283,19 @@ b,strong{font-weight:600}
 
 /* ---------------------------------------------------------------- hero --- */
 .hero{padding-block:clamp(1.75rem,4vw,3rem) clamp(2rem,4vw,3.25rem)}
-.hero__meta{
-  display:flex;flex-wrap:wrap;gap:.35rem .85rem;
-  padding-bottom:1.5rem;color:var(--ink-3);
-  font-family:var(--mono);font-size:var(--fs-mono);letter-spacing:.1em;text-transform:uppercase;
-}
-.hero__meta i{font-style:normal;color:var(--rule-2)}
-.hero__meta em{font-style:normal;color:var(--led-ink)}
 .hero__grid{display:grid;gap:clamp(2rem,4vw,3.25rem);align-items:start}
 @media (min-width:980px){ .hero__grid{grid-template-columns:minmax(0,1fr) minmax(0,1.04fr)} }
 .hero__copy{display:flex;flex-direction:column;gap:1.15rem;align-items:flex-start}
 .hero h1{font-size:var(--fs-h1);font-weight:700;max-width:17ch}
 .hero h1 span{color:var(--blue)}
 .hero__deck{font-size:1.125rem;color:var(--ink-2);max-width:46ch;line-height:1.58}
-.hero__terms{
-  font-family:var(--mono);font-size:var(--fs-mono);color:var(--ink-3);
-  letter-spacing:.04em;line-height:1.7;
+/* the offer, said once more where the hand is already on the form */
+.hero__offer{
+  font-size:var(--fs-sm);color:var(--ink-2);line-height:1.5;max-width:46ch;
+  padding:.6rem .85rem;border-inline-start:3px solid var(--led);
+  background:var(--led-soft);border-radius:0 var(--r) var(--r) 0;
 }
-.hero__terms em{font-style:normal;color:var(--ink-2)}
+.hero__offer b{color:var(--ink);font-weight:600}
 
 /* ------------------------------------------------------------ the catch --- */
 /* One field. Everything else we want to know is asked after the lead is in. */
@@ -338,16 +333,11 @@ b,strong{font-weight:600}
    the wire to the address, and the mail lands at the top of the inbox.
    Everything is keyframed against --cycle so the beats cannot drift apart.
    ========================================================================= */
-.fig{margin:0;display:flex;flex-direction:column;gap:.55rem}
+.fig{margin:0;container-type:inline-size}
 /* Single column: the figure keeps a device's proportions instead of stretching
    to the full width of the text above it. */
 @media (max-width:979px){ .fig{max-width:34rem} }
 .fig__frame{border:1px solid var(--rule-2);background:var(--surface);padding:.7rem}
-.fig figcaption{
-  font-family:var(--mono);font-size:var(--fs-mono);color:var(--ink-3);
-  line-height:1.65;letter-spacing:.01em;
-}
-.fig figcaption b{color:var(--ink-2);font-weight:500}
 
 .device__bar{
   display:flex;align-items:center;justify-content:space-between;gap:.75rem;
@@ -355,10 +345,6 @@ b,strong{font-weight:600}
   font-family:var(--mono);font-size:.6875rem;letter-spacing:.09em;color:var(--ink-3);
 }
 .device__bar b{display:flex;align-items:center;gap:.45rem;font-weight:400;color:var(--ink-2);flex:1 1 auto;min-width:0}
-.device__bar > span{flex:none}
-/* Below this width the status word needs the whole bar; the port line is
-   decoration and the same values sit in the table further down. */
-@media (max-width:460px){ .device__bar > span{display:none} }
 .led{width:5px;height:5px;border-radius:50%;background:var(--led);box-shadow:0 0 6px var(--led);animation:blink 3.4s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
@@ -375,7 +361,7 @@ b,strong{font-weight:600}
 @keyframes state2{0%,28%{opacity:0}28.01%,56%{opacity:1}56.01%,100%{opacity:0}}
 @keyframes state3{0%,56%{opacity:0}56.01%,90%{opacity:1}90.01%,100%{opacity:0}}
 
-.stage{display:grid;gap:0;background:var(--device);padding:.85rem;border-radius:var(--r)}
+.stage{display:grid;grid-template-columns:minmax(0,1fr);gap:0;background:var(--device);padding:.85rem;border-radius:var(--r)}
 
 /* --- 1. the machine ---
    A lid above the glass and a control panel below it, so the dark rectangle
@@ -390,7 +376,7 @@ b,strong{font-weight:600}
   content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:2px;
   width:22%;height:2px;border-radius:1px;background:var(--device-rule);
 }
-.bed{position:relative;overflow:hidden;aspect-ratio:2.1;display:flex;border:1px solid var(--device-rule);background:var(--device-2);padding:.7rem}
+.bed{position:relative;overflow:hidden;display:flex;border:1px solid var(--device-rule);background:var(--device-2);padding:.7rem}
 .bed__guide{position:absolute;inset:0;pointer-events:none;font-family:var(--mono);font-size:.5625rem;letter-spacing:.11em;color:rgba(255,255,255,.28)}
 .bed__guide span{position:absolute}
 .bed__guide span:nth-child(1){top:.3rem;left:.4rem}
@@ -433,6 +419,7 @@ b,strong{font-weight:600}
 /* --- the page on the glass --- */
 .sheet{
   position:relative;flex:1;background:#FCFCFA;padding:.7rem .8rem;
+  min-height:19rem; /* the figure's height, in effect: the inbox stretches to match */
   display:flex;flex-direction:column;gap:.42rem;
   box-shadow:0 5px 14px -7px rgba(0,0,0,.6);
   animation:feed var(--cycle) ease-in-out infinite;
@@ -458,8 +445,8 @@ b,strong{font-weight:600}
   88%{clip-path:inset(0 0 0 0)}
   88.01%,100%{clip-path:inset(0 100% 0 0)}
 }
-.sheet__hd{display:flex;align-items:baseline;justify-content:space-between;gap:.75rem;padding-bottom:.38rem;border-bottom:1px solid #DFE3E6}
-.sheet__t{font-family:var(--sans);font-weight:600;font-size:.72rem;color:#181E24;white-space:nowrap}
+.sheet__hd{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.1rem .75rem;padding-bottom:.38rem;border-bottom:1px solid #DFE3E6}
+.sheet__t{font-family:var(--sans);font-weight:600;font-size:.72rem;color:#181E24;white-space:nowrap;min-width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .sheet__d{font-family:var(--mono);font-size:.5625rem;color:#8B959C;white-space:nowrap}
 .sheet__body{display:flex;flex-direction:column;gap:.3rem}
 .ln{height:3px;background:#D3D9DE}
@@ -496,13 +483,15 @@ b,strong{font-weight:600}
 }
 
 /* --- 2. the wire the mail flies along ---
-   The address chip is a flex item at the end of the wire and the dashed line
-   is the runway that leads to it, so the packet travels the line's own width
-   and stops AT the address however wide that address happens to be. The chip
-   lights only once the packet has arrived. */
-.wire{position:relative;display:flex;align-items:center;gap:.45rem;height:56px;margin:.35rem 0 .1rem;padding-inline:.15rem}
+   Stacked (narrow figure): a short vertical drop from the machine into the
+   inbox below, so the same left-to-right keyframes read as top-to-bottom.
+   Side by side (see the container query at the end): the dashed line spans
+   the gap between the two panels and the packet crosses it. The address is
+   no longer at the end of the wire — it is the inbox header, whose inbox
+   this is. */
+.wire{position:relative;display:flex;align-items:center;justify-content:center;width:4rem;height:4rem;margin:.1rem auto}
 .wire__line{
-  position:relative;flex:1 1 auto;min-width:2.75rem;height:1px;
+  position:relative;flex:none;width:4rem;height:1px;transform:rotate(90deg);
   background:repeating-linear-gradient(90deg,var(--device-rule) 0 6px,transparent 6px 12px);
 }
 /* the line lights up behind the packet, so the wire reads as carrying it */
@@ -519,7 +508,7 @@ b,strong{font-weight:600}
   89%,100%{transform:scaleX(0)}
 }
 .wire__to{
-  flex:0 1 auto;min-width:0;
+  flex:1 1 auto;min-width:0;text-transform:none;text-align:left;
   background:var(--device);padding:.18rem .5rem;
   font-family:var(--mono);font-size:.625rem;letter-spacing:.04em;color:var(--device-dim);
   border:1px solid var(--device-rule);border-radius:var(--r);
@@ -562,7 +551,7 @@ b,strong{font-weight:600}
   box-shadow:0 0 0 4px var(--led-glow), 0 4px 14px var(--led-glow);
   animation:arc var(--cycle) ease-in-out infinite;
 }
-.pkt svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.8}
+.pkt svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.8;transform:rotate(-90deg)}
 @keyframes fly{
   0%,30%{left:0;opacity:0}
   32%{left:0;opacity:1}
@@ -594,7 +583,7 @@ b,strong{font-weight:600}
 }
 .inbox__hd svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.6}
 .inbox__n{
-  margin-inline-start:auto;min-width:16px;height:16px;padding:0 4px;
+  margin-inline-start:.15rem;min-width:16px;height:16px;padding:0 4px;
   display:grid;place-items:center;border-radius:8px;
   background:var(--led);color:var(--on-led);
   font-style:normal;font-size:.5625rem;font-weight:500;
@@ -602,7 +591,9 @@ b,strong{font-weight:600}
 }
 @keyframes pop{0%,57%{transform:scale(0)}62%{transform:scale(1.25)}66%,88%{transform:scale(1)}93%,100%{transform:scale(0)}}
 
-.inbox__list{list-style:none;margin:0;padding:0}
+/* Three rows tall and no taller: the new one pushes the oldest out of view
+   the way a real list does, and the figure never changes height mid-cycle. */
+.inbox__list{list-style:none;margin:0;padding:0;height:calc(3 * 46px);overflow:hidden}
 .mail{
   position:relative;
   display:flex;align-items:center;gap:.55rem;
@@ -668,6 +659,28 @@ b,strong{font-weight:600}
   74%,100%{transform:translateX(110%)}
 }
 
+/* Stacked on a narrow screen the machine sits above the inbox, so the page on
+   the glass is kept shorter than in the side-by-side layout. */
+@container (max-width:27.99rem){ .sheet{min-height:12rem} }
+
+/* Side by side once the figure is wide enough: the machine on the left, the
+   inbox on the right, and the wire is the gap the mail crosses. Keyed to the
+   figure's own width, not the viewport, because the hero puts it in a column
+   on wide screens and alone on narrow ones. */
+@container (min-width:28rem){
+  .stage{grid-template-columns:minmax(0,1fr) clamp(2.5rem,7cqw,4.5rem) minmax(0,1fr);align-items:start}
+  .mfp,.inbox{min-width:0}
+  /* level with the top row of the list, where the mail is about to land */
+  .wire{width:auto;height:56px;margin:1.85rem 0 0;justify-content:stretch}
+  .wire__line{flex:1 1 auto;width:auto;transform:none}
+  .pkt svg{transform:none}
+  .inbox{align-self:stretch;display:flex;flex-direction:column}
+  /* the machine sets the height; the list fills it and clips, so however many
+     rows there are they never make the figure taller */
+  .inbox__list{flex:1 1 0px;height:0;min-height:0}
+  .inbox__label{display:none}
+}
+
 /* off-screen the whole thing stops; nothing animates behind the viewport */
 .fig__frame.is-idle *{animation-play-state:paused !important}
 /* One frame with no animations at all: removing it puts every keyframe back
@@ -730,7 +743,7 @@ b,strong{font-weight:600}
 /* Radio + :checked, so the picker works with no JS and with the keyboard. */
 .cases{position:relative;display:flex;flex-direction:column;gap:1rem}
 .cases input{position:absolute;top:0;left:0;opacity:0;pointer-events:none}
-.cases__tabs{display:flex;flex-wrap:wrap;gap:.4rem;border-bottom:2px solid var(--ink);padding-bottom:.7rem}
+.cases__tabs{display:flex;flex-wrap:wrap;gap:.4rem}
 .cases__tabs label{
   display:inline-flex;align-items:center;gap:.4rem;
   padding:.4rem .7rem;cursor:pointer;
@@ -776,38 +789,9 @@ b,strong{font-weight:600}
 .step-icon svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.5}
 .step h3{font-family:var(--sans);font-size:var(--fs-h3);font-weight:600;grid-column:2}
 .step p{color:var(--ink-2);font-size:var(--fs-sm);max-width:60ch;grid-column:2}
+/* every section ends where the page wants the reader: at the form */
+.sect__cta{margin-top:1.4rem}
 
-/* the strip that hands the reader from the steps down into the table */
-.cfg-flow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:1.4rem 0 .8rem;font-family:var(--mono);font-size:.75rem;color:var(--ink-2)}
-.cfg-flow__step{display:inline-flex;align-items:center;gap:.35rem}
-.cfg-flow__step svg{width:16px;height:16px;flex:none;color:var(--blue);stroke:currentColor;fill:none;stroke-width:1.6}
-.cfg-flow__arrow{color:var(--rule-2)}
-
-/* ------------------------------------------------------- device config --- */
-.cfg{background:var(--device);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);margin-top:0}
-.cfg__hd{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;padding:.65rem .95rem;background:var(--device-2);border-bottom:1px solid var(--device-rule)}
-.cfg__hd b{font-family:var(--mono);font-size:var(--fs-mono);font-weight:500;letter-spacing:.11em;text-transform:uppercase;color:var(--device-ink)}
-.cfg__hd span{margin-inline-start:auto;font-family:var(--mono);font-size:.6875rem;color:var(--device-dim)}
-.cfg__scroll{overflow-x:auto}
-.cfg table{width:100%;min-width:26rem;border-collapse:collapse;font-family:var(--mono);font-size:var(--fs-sm);font-variant-numeric:tabular-nums}
-.cfg th,.cfg td{text-align:left;padding:.5rem .95rem;border-bottom:1px solid var(--device-rule);white-space:nowrap}
-.cfg tr:last-child th,.cfg tr:last-child td{border-bottom:0}
-.cfg th{font-weight:400;color:var(--device-dim);width:13rem}
-.cfg td{color:var(--device-ink)}
-.cfg td em{font-style:normal;color:var(--led)}
-.cfg__ft{padding:.6rem .95rem;border-top:1px solid var(--device-rule);font-family:var(--mono);font-size:.6875rem;color:var(--device-dim);line-height:1.6}
-/* On a phone a horizontally scrolled spec table hides its own values behind an
-   edge with no cue, so stack label over value instead of scrolling. */
-@media (max-width:620px){
-  .cfg table{min-width:0}
-  .cfg table,.cfg tbody,.cfg tr,.cfg th,.cfg td{display:block;white-space:normal}
-  .cfg tr{padding:.4rem 0;border-bottom:1px solid var(--device-rule)}
-  .cfg tr:last-child{border-bottom:0}
-  /* the generated address has no spaces to break at, and it is longer than a
-     phone is wide */
-  .cfg th,.cfg td{width:auto;border-bottom:0;padding-block:0;overflow-wrap:anywhere}
-  .cfg th{padding-bottom:.1rem}
-}
 
 /* ---------------------------------------------------------------- price --- */
 .plan{
@@ -828,6 +812,7 @@ b,strong{font-weight:600}
 .offer svg{width:16px;height:16px;flex:none;margin-top:.18rem;fill:none;stroke:var(--led);stroke-width:2}
 .offer b{display:block;font-family:var(--sans);font-size:var(--fs-sm);font-weight:600;color:var(--ink)}
 .offer span{display:block;margin-top:.15rem;font-size:var(--fs-xs);color:var(--ink-2);line-height:1.5}
+.plan__cta{margin-top:.9rem}
 .plan__r{padding:clamp(1.3rem,3vw,1.9rem)}
 .plan__r > b{font-family:var(--mono);font-size:var(--fs-mono);font-weight:500;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);display:block;padding-bottom:.6rem;border-bottom:1px solid var(--rule)}
 .incl{list-style:none;margin:0;padding:.3rem 0 0}
@@ -836,7 +821,6 @@ b,strong{font-weight:600}
 .incl svg{width:14px;height:14px;flex:none;margin-top:.34rem;fill:none;stroke:var(--led);stroke-width:2.4}
 .incl em{font-style:normal;color:var(--ink);font-weight:600;font-family:var(--sans)}
 .tag{font-family:var(--mono);font-size:.6875rem;letter-spacing:.05em;color:var(--flag);background:var(--flag-soft);border:1px solid color-mix(in srgb,var(--flag) 30%,transparent);padding:.05rem .3rem;white-space:nowrap}
-.price__note{font-family:var(--mono);font-size:.6875rem;color:var(--ink-3);line-height:1.7;max-width:64ch}
 /* Outside the list, because a planned feature inside "included in the price"
    reads as a feature you get today. */
 .price__later{display:flex;align-items:baseline;gap:.5rem;margin-top:.9rem;padding-top:.75rem;border-top:1px solid var(--rule);font-size:var(--fs-xs);color:var(--ink-3)}
@@ -1019,16 +1003,13 @@ b,strong{font-weight:600}
   <!-- ============================== HERO ============================== -->
   <section class="hero">
     <div class="wrap">
-      <p class="hero__meta">
-        <span data-i18n="hero.meta1">inbox.eu pakalpojums</span> <i aria-hidden="true">/</i>
-        <span data-i18n="hero.meta2">izstrādē</span> <i aria-hidden="true">/</i>
-        <em data-i18n="hero.meta3">pirmajiem 10 — gads bez maksas</em>
-      </p>
 
       <div class="hero__grid">
         <div class="hero__copy">
           <h1 data-i18n="hero.h1">Nospied «Skenēt» uz printera. PDF jau ir <span>tavā e-pastā</span>.</h1>
           <p class="hero__deck" data-i18n="hero.deck">Tavs skeneris vai daudzfunkciju printeris saņem savus SMTP piekļuves datus un sūta skenējumus tieši uz norādīto adresi. Bez datora pa vidu, bez USB zibatmiņas, bez ražotāja mākoņa. Uzstādīšana — ap piecām minūtēm, vienu reizi.</p>
+
+          <p class="hero__offer" data-i18n="hero.offer"><b>Atstāj e-pastu — pirmais gads bez maksas.</b> Pirmie 50 pieteikušies saņem vienu ierīci bez maksas gadu no palaišanas dienas. Karte nav vajadzīga.</p>
 
           <form class="catch" id="catch-hero" novalidate>
             <div class="catch__row">
@@ -1042,8 +1023,6 @@ b,strong{font-weight:600}
             </label>
             <p class="note" id="note-hero" role="status"></p>
           </form>
-
-          <p class="hero__terms" data-i18n="hero.terms">10 &euro; gadā par ierīci &middot; <em>Pieteikties ir bez maksas</em> &middot; Dažas vēstules — pirms palaišanas un palaišanas dienā</p>
         </div>
 
         <figure class="fig">
@@ -1057,7 +1036,6 @@ b,strong{font-weight:600}
                   <span data-i18n="anim.s3">Nosūtīts</span>
                 </span>
               </b>
-              <span>SMTP / 465 / SSL</span>
             </div>
 
             <div class="stage" aria-hidden="true">
@@ -1081,6 +1059,10 @@ b,strong{font-weight:600}
                         <span class="ln w82"></span><span class="ln w90"></span>
                         <span class="ln w42"></span>
                       </div>
+                      <div class="sheet__body sheet__body--two">
+                        <span class="ln w90"></span><span class="ln w96"></span>
+                        <span class="ln w60"></span><span class="ln w82"></span>
+                      </div>
                       <div class="sheet__sum"><span class="ln ln--strong w28"></span></div>
                     </div>
                     <div class="sheet__ft"><span>A4 / 300 DPI</span><u data-i18n="anim.pdf">PDF 1,8 MB</u></div>
@@ -1093,20 +1075,20 @@ b,strong{font-weight:600}
                 </div>
               </div>
 
-              <!-- 2. the wire: the mail leaves the machine and flies to the address -->
+              <!-- 2. the wire: the gap between the machine and the inbox that the mail crosses -->
               <div class="wire">
                 <span class="wire__line">
                   <i class="trail"></i>
                   <span class="pkt"><i><svg viewBox="0 0 24 24"><rect x="2.8" y="5.4" width="18.4" height="13.2"/><path d="M3.4 6.6 12 12.9l8.6-6.3"/></svg></i></span>
                 </span>
-                <span class="wire__to" id="wire-to" data-i18n="anim.to">birojs@inbox.eu</span>
               </div>
 
-              <!-- 3. the inbox: the scan arrives at the top of the list -->
+              <!-- 3. the inbox — the visitor's own address in its header — where the scan lands at the top -->
               <div class="inbox">
                 <div class="inbox__hd">
                   <svg viewBox="0 0 24 24"><path d="M3 12h5l2 3h4l2-3h5M3 12l2.6-6.4A2 2 0 0 1 7.5 4.4h9a2 2 0 0 1 1.9 1.2L21 12v5.6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-                  <span data-i18n="anim.inbox">Iesūtne</span>
+                  <span class="inbox__label" data-i18n="anim.inbox">Iesūtne</span>
+                  <span class="wire__to" id="wire-to" data-i18n="anim.to">birojs@inbox.eu</span>
                   <i class="inbox__n">1</i>
                 </div>
                 <ul class="inbox__list">
@@ -1143,11 +1125,67 @@ b,strong{font-weight:600}
                       <i class="mail__sz" data-i18n="anim.sz3">2,4 MB</i>
                     </span>
                   </li>
+                  <!-- older ones, so the side-by-side list is as tall as the machine
+                       beside it; senders repeat because scanners do -->
+                  <li class="mail">
+                    <span class="mail__av"><svg viewBox="0 0 24 24"><path d="M7 8.6h10a2 2 0 0 1 2 2v4.8H5v-4.8a2 2 0 0 1 2-2zM7.8 8.6V4.8h8.4v3.8M7.8 15.4h8.4V20H7.8z"/></svg></span>
+                    <span class="mail__tx">
+                      <b data-i18n="anim.old2">Skeneris — Grāmatvedība</b>
+                      <span class="mail__file"><svg class="mail__clip" viewBox="0 0 24 24"><path d="M20 11.5 12.3 19a4.6 4.6 0 0 1-6.5-6.5l8-8a3 3 0 1 1 4.3 4.3l-8 8a1.5 1.5 0 0 1-2.1-2.1l7.3-7.3"/></svg><span data-i18n="anim.f4">Akts_2026-0406.pdf</span></span>
+                    </span>
+                    <span class="mail__end">
+                      <i class="mail__t">07:41</i>
+                      <i class="mail__sz">3 MB</i>
+                    </span>
+                  </li>
+                  <li class="mail">
+                    <span class="mail__av"><svg viewBox="0 0 24 24"><path d="M7 8.6h10a2 2 0 0 1 2 2v4.8H5v-4.8a2 2 0 0 1 2-2zM7.8 8.6V4.8h8.4v3.8M7.8 15.4h8.4V20H7.8z"/></svg></span>
+                    <span class="mail__tx">
+                      <b data-i18n="anim.old1">Skeneris — Vestibils</b>
+                      <span class="mail__file"><svg class="mail__clip" viewBox="0 0 24 24"><path d="M20 11.5 12.3 19a4.6 4.6 0 0 1-6.5-6.5l8-8a3 3 0 1 1 4.3 4.3l-8 8a1.5 1.5 0 0 1-2.1-2.1l7.3-7.3"/></svg><span data-i18n="anim.f5">Pilnvara_2026-0403.pdf</span></span>
+                    </span>
+                    <span class="mail__end">
+                      <i class="mail__t">16:58</i>
+                      <i class="mail__sz">1 MB</i>
+                    </span>
+                  </li>
+                  <li class="mail">
+                    <span class="mail__av"><svg viewBox="0 0 24 24"><path d="M7 8.6h10a2 2 0 0 1 2 2v4.8H5v-4.8a2 2 0 0 1 2-2zM7.8 8.6V4.8h8.4v3.8M7.8 15.4h8.4V20H7.8z"/></svg></span>
+                    <span class="mail__tx">
+                      <b data-i18n="anim.old3">Skeneris — Reģistratūra</b>
+                      <span class="mail__file"><svg class="mail__clip" viewBox="0 0 24 24"><path d="M20 11.5 12.3 19a4.6 4.6 0 0 1-6.5-6.5l8-8a3 3 0 1 1 4.3 4.3l-8 8a1.5 1.5 0 0 1-2.1-2.1l7.3-7.3"/></svg><span data-i18n="anim.f6">Kvits_2026-0402.pdf</span></span>
+                    </span>
+                    <span class="mail__end">
+                      <i class="mail__t">15:20</i>
+                      <i class="mail__sz">2 MB</i>
+                    </span>
+                  </li>
+                  <li class="mail">
+                    <span class="mail__av"><svg viewBox="0 0 24 24"><path d="M7 8.6h10a2 2 0 0 1 2 2v4.8H5v-4.8a2 2 0 0 1 2-2zM7.8 8.6V4.8h8.4v3.8M7.8 15.4h8.4V20H7.8z"/></svg></span>
+                    <span class="mail__tx">
+                      <b data-i18n="anim.old2">Skeneris — Grāmatvedība</b>
+                      <span class="mail__file"><svg class="mail__clip" viewBox="0 0 24 24"><path d="M20 11.5 12.3 19a4.6 4.6 0 0 1-6.5-6.5l8-8a3 3 0 1 1 4.3 4.3l-8 8a1.5 1.5 0 0 1-2.1-2.1l7.3-7.3"/></svg><span data-i18n="anim.f7">Tame_2026-0401.pdf</span></span>
+                    </span>
+                    <span class="mail__end">
+                      <i class="mail__t">11:07</i>
+                      <i class="mail__sz">1 MB</i>
+                    </span>
+                  </li>
+                  <li class="mail">
+                    <span class="mail__av"><svg viewBox="0 0 24 24"><path d="M7 8.6h10a2 2 0 0 1 2 2v4.8H5v-4.8a2 2 0 0 1 2-2zM7.8 8.6V4.8h8.4v3.8M7.8 15.4h8.4V20H7.8z"/></svg></span>
+                    <span class="mail__tx">
+                      <b data-i18n="anim.old3">Skeneris — Reģistratūra</b>
+                      <span class="mail__file"><svg class="mail__clip" viewBox="0 0 24 24"><path d="M20 11.5 12.3 19a4.6 4.6 0 0 1-6.5-6.5l8-8a3 3 0 1 1 4.3 4.3l-8 8a1.5 1.5 0 0 1-2.1-2.1l7.3-7.3"/></svg><span data-i18n="anim.f8">Protokols_2026-0331.pdf</span></span>
+                    </span>
+                    <span class="mail__end">
+                      <i class="mail__t">08:45</i>
+                      <i class="mail__sz">4 MB</i>
+                    </span>
+                  </li>
                 </ul>
               </div>
             </div>
           </div>
-          <figcaption data-i18n="fig.cap"><b>1. att.</b> — Ierīce ar saviem piekļuves datiem autentificējas SMTP serverī un nosūta PDF uz tavu norādīto adresi. Ieraksti savu e-pastu formā, un vēstule animācijā aizlidos uz to.</figcaption>
         </figure>
       </div>
     </div>
@@ -1290,31 +1328,7 @@ b,strong{font-weight:600}
           </li>
         </ol>
 
-        <div class="cfg-flow" aria-hidden="true">
-          <span class="cfg-flow__step"><svg viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.4"/></svg><span data-i18n="flow.1">Tava bilde</span></span>
-          <span class="cfg-flow__arrow">&rarr;</span>
-          <span class="cfg-flow__step"><svg viewBox="0 0 24 24"><path d="M12 3v2.4M12 18.6V21M21 12h-2.4M5.4 12H3M18 6l-1.7 1.7M7.7 16.3 6 18M18 18l-1.7-1.7M7.7 7.7 6 6"/><circle cx="12" cy="12" r="3.6"/></svg><span data-i18n="flow.2">AI nolasa modeli</span></span>
-          <span class="cfg-flow__arrow">&rarr;</span>
-          <span class="cfg-flow__step"><svg viewBox="0 0 24 24"><path d="M5 12.5 9.5 17 19 7.5"/></svg><span data-i18n="flow.3">Konfigurācija zemāk</span></span>
-        </div>
-        <div class="cfg">
-          <div class="cfg__hd">
-            <b data-i18n="cfg.h">Ģenerētā konfigurācija</b>
-            <span data-i18n="cfg.eg">piemērs</span>
-          </div>
-          <div class="cfg__scroll" tabindex="0" role="group" aria-label="Ģenerētā konfigurācija" data-i18n-aria="cfg.h">
-            <table>
-              <tbody>
-                <tr><th data-i18n="cfg.r1">Printeris atpazīts</th><td data-i18n="cfg.v1">Canon imageRUNNER 2630i <em>(piemērs)</em></td></tr>
-                <tr><th data-i18n="cfg.r2">Atsevišķa adrese</th><td>ir2630i_registratura@scan.scaninbox.eu</td></tr>
-                <tr><th data-i18n="cfg.r3">Šifrēšana</th><td data-i18n="cfg.v3">SMTP pa TLS, ģenerēts automātiski</td></tr>
-                <tr><th data-i18n="cfg.r4">Pielikums</th><td data-i18n="cfg.v4">PDF &middot; katram skenējumam</td></tr>
-                <tr><th data-i18n="cfg.r5">Ko ievadi pats</th><td data-i18n="cfg.v5">Serveris, ports un šī adrese — neko citu</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="cfg__ft" data-i18n="cfg.ft">Šīs ir piemēra vērtības. ScanInbox reālās ģenerē katram printerim atsevišķi, tāpēc iekārta gaitenī nekad nenes piekļuves datus, kas atver vēl ko citu.</p>
-        </div>
+        <p class="sect__cta"><a class="btn btn--go" href="#pieteikties" data-i18n="cta.long">Pieteikties pirmajiem</a></p>
       </div>
     </div>
   </section>
@@ -1340,6 +1354,7 @@ b,strong{font-weight:600}
                 <span data-i18n="price.offer.p">Pirmie desmit pieteikušies — pēc pieteikšanās secības — saņem vienu ierīci bez maksas gadu no palaišanas dienas. Karte nav jānorāda. Pēc gada maksa nesākas pati: pirms tam uzrakstīsim un pajautāsim.</span>
               </span>
             </p>
+            <p class="plan__cta"><a class="btn btn--go" href="#pieteikties" data-i18n="cta.long">Pieteikties pirmajiem</a></p>
           </div>
           <div class="plan__r">
             <b data-i18n="price.incl.h">Cenā ietilpst</b>
@@ -1352,8 +1367,6 @@ b,strong{font-weight:600}
             <p class="price__later" data-i18n="price.later"><span class="tag">vēlāk</span> Skenējumu žurnāls un piegādes apstiprinājumi.</p>
           </div>
         </div>
-
-        <p class="price__note" data-i18n="price.note">Cena ir plānotā, un pakalpojums vēl nav nopērkams. Pirms palaišanas uzrunāsim visus pieteikušos — arī tad, ja izrādīsies, ka cenu vajag citādu.</p>
       </div>
     </div>
   </section>
@@ -1580,24 +1593,21 @@ window.SCANINBOX_I18N = {
   "nav.price": "Price",
   "nav.faq": "FAQ",
   "lang.label": "Page language",
-  "cta.short": "Sign up",
-  "hero.meta1": "An inbox.eu service",
-  "hero.meta2": "in development",
-  "hero.meta3": "first 10 — a year free",
-  "hero.h1": "Press “Scan” on the printer. The PDF is already <span>in your e-mail</span>.",
-  "hero.deck": "Your scanner or multifunction printer gets its own SMTP credentials and sends scans straight to the address you choose. No PC in between, no USB stick, no vendor cloud. Setup takes about five minutes, once.",
+  "cta.short": "Claim your free year",
+  "hero.h1": "From your scanner to <span>your inbox</span> in seconds.",
+  "hero.deck": "Press “Scan” on your printer and the PDF is in your inbox within seconds, at any e-mail address you choose. No more USB sticks, no computer in between, nothing to install. Set up once, in five minutes.",
+  "hero.offer": "<b>Leave your e-mail — your first year is free.</b> The first 50 sign-ups get one device free for a year from launch day. No card needed.",
   "form.label": "E-mail address",
-  "cta.long": "Join the first 10",
+  "cta.long": "Claim your first year free",
   "form.consent": "inbox.eu may contact me about ScanInbox. We will keep the address and your answers until the service has launched.",
-  "hero.terms": "&euro;10 per device per year &middot; <em>Signing up is free</em> &middot; A few e-mails — before launch and on launch day",
   "anim.s1": "Scanning page…",
   "anim.s2": "Sending to the address…",
   "anim.s3": "Sent",
   "anim.doc": "Invoice No. 2026/0412",
   "anim.date": "04/09/2026",
   "anim.pdf": "PDF 1.8 MB",
-  "anim.to": "office@inbox.eu",
   "anim.inbox": "Inbox",
+  "anim.to": "office@inbox.eu",
   "anim.from": "Scanner — Lobby",
   "anim.f1": "Invoice_2026-0412.pdf",
   "anim.now": "now",
@@ -1608,17 +1618,22 @@ window.SCANINBOX_I18N = {
   "anim.old2": "Scanner — Accounting",
   "anim.f3": "Delivery_note_2026-0407.pdf",
   "anim.sz3": "2.4 MB",
-  "fig.cap": "<b>Fig. 1</b> — The device authenticates on the SMTP server with its own credentials and sends the PDF to the address you gave. Type your e-mail into the form and the mail in the animation will fly to it.",
+  "anim.f4": "Report_2026-0406.pdf",
+  "anim.f5": "Authorisation_2026-0403.pdf",
+  "anim.old3": "Scanner — Reception",
+  "anim.f6": "Receipt_2026-0402.pdf",
+  "anim.f7": "Estimate_2026-0401.pdf",
+  "anim.f8": "Minutes_2026-0331.pdf",
   "m1v": "~5 min",
   "m1": "one-time setup",
   "m2v": "&lt; 1 min",
   "m2": "usually, for one page to the mailbox",
-  "m3v": "0",
+  "m3v": "&euro;0",
   "m3": "extra printouts and USB sticks",
   "m4v": "&euro;10",
   "m4": "per device per year, VAT included",
   "rail.who": "Who it’s for",
-  "who.h2": "Which one are you",
+  "who.h2": "Works for home and office",
   "who.lede": "Scanning to e-mail is already built into almost every office machine. The only thing stopping it is that somebody has to find a mail server, a port, a user name and a password first. Pick the situation that sounds like yours.",
   "who.t1": "At home",
   "who.t2": "In the office",
@@ -1643,7 +1658,7 @@ window.SCANINBOX_I18N = {
   "who.p4.b": "Add the new device to the account and get new credentials for it. The address the scans arrive at stays the same — only the hardware under it changes.",
   "who.p4.o": "Nothing has to be remembered from last time and nothing has to be carried over by hand.",
   "rail.how": "How it works",
-  "how.h2": "From buying a printer to a working digital habit",
+  "how.h2": "Works perfectly for new or existing printers",
   "how.lede": "Most people meet this problem the same way: they buy or inherit a printer, notice it already claims to do Scan-to-Email, and then get stuck on the SMTP screen. ScanInbox skips straight from “I have a printer” to “it emails me the scan” — one guided setup, then it just works, for as long as you own the device.",
   "how.s1.h": "1. Photograph your printer",
   "how.s1.p": "Snap a picture of your printer. Our AI works out the exact model — no fixed list, we try every printer.",
@@ -1653,37 +1668,21 @@ window.SCANINBOX_I18N = {
   "how.s3.p": "Open your printer’s settings, go to the exact screen we point you to, and enter what we’ve written for you. One time, ever — under five minutes even the first time.",
   "how.s4.h": "4. Just scan",
   "how.s4.p": "Press Scan to Email, pick your address, and by the time the scan finishes it’s already in your inbox — automatically archived, always searchable, in under a minute per document.",
-  "flow.1": "Your photo",
-  "flow.2": "AI reads the model",
-  "flow.3": "Config generated below",
-  "cfg.h": "Generated configuration",
-  "cfg.eg": "example",
-  "cfg.r1": "Printer identified",
-  "cfg.v1": "Canon imageRUNNER 2630i <em>(example)</em>",
-  "cfg.r2": "Dedicated address",
-  "cfg.r3": "Encryption",
-  "cfg.v3": "SMTP over TLS, generated automatically",
-  "cfg.r4": "Attachment",
-  "cfg.v4": "PDF &middot; per scan",
-  "cfg.r5": "What you type in",
-  "cfg.v5": "Server, port, and this address — nothing else",
-  "cfg.ft": "These are example values. ScanInbox generates the real ones per printer, so a device in a hallway never carries credentials that open anything else.",
   "rail.price": "Price",
-  "price.h2": "One price per device, per year",
+  "price.h2": "One price per device, per year — and the first year free for the first 50",
   "price.unit": "per device per year, VAT included",
   "price.sub": "One price no matter how many pages you scan. You pay for each device you add, and nothing for the ones you do not.",
-  "price.offer.h": "First 10 — a year free",
-  "price.offer.p": "The first ten sign-ups — in the order they sign up — get one device free for a year from the launch date. No card to enter. After that year the charge does not start by itself: we will write and ask first.",
+  "price.offer.h": "First 50 sign-ups: first year free",
+  "price.offer.p": "Leave your e-mail below and you are in line. The first 50 sign-ups get one device free for a year from launch day — no card to enter. After that year the charge does not start by itself: we write and ask first.",
   "price.incl.h": "Included in the price",
   "price.i1": "<em>Separate credentials</em> for each device — switch one off, the rest keep working.",
   "price.i2": "<em>No page limit</em> for ordinary office use. One attachment per e-mail, up to 20 MB; the device will not send a larger one and will say so.",
   "price.i3": "<em>On our side the data stays in the EU</em> — the relaying happens on inbox.eu infrastructure in the European Union, in line with the GDPR. Where the scan goes after that is decided by the mailbox you choose.",
   "price.i4": "<em>Machines with SMTP authentication and TLS</em> — in practice most office models from Canon, HP, Brother, Epson, Kyocera, Xerox, Ricoh, Konica Minolta, Lexmark and Sharp.",
   "price.later": "<span class=\"tag\">later</span> A scan log and delivery confirmations.",
-  "price.note": "This is the planned price, and the service cannot be bought yet. Before we launch we will write to everyone who has signed up — including if the price turns out to need changing.",
   "rail.signup": "Sign up",
-  "signup.h2": "Leave your e-mail — the rest takes 20 seconds",
-  "signup.p": "We will write when ScanInbox is ready. The first ten sign-ups get a year free for one device. After you sign up we ask a few questions about your machines — answering is optional, but it is what decides which machines we support first.",
+  "signup.h2": "Leave your e-mail — claim your first year free",
+  "signup.p": "We write when ScanInbox is ready. The first 50 sign-ups get one device free for a year from launch day — no card, nothing to cancel. Then a few optional questions about your machines: they take 20 seconds and decide which machines we support first.",
   "assure.1": "About ScanInbox only — no newsletters and no advertising.",
   "assure.2": "Your address does not go to anyone else.",
   "rail.faq": "FAQ",
@@ -1691,7 +1690,7 @@ window.SCANINBOX_I18N = {
   "faq.q0": "What is ScanInbox?",
   "faq.a0": "A service that gives your scanner or multifunction printer its own SMTP credentials. The machine already has a “Scan to E-mail” button — what is missing is a mail server that will accept what it sends. Enter the values once, and from then on every scan goes to the address you choose, with no PC in between.",
   "faq.q1": "When will ScanInbox launch?",
-  "faq.a1": "We are building the first version now and expect to launch within the next few months. We will not promise an exact date until we are sure we can hold to it — which is why this page collects sign-ups first. Everyone who signs up gets an e-mail before launch, and the first ten get a year free.",
+  "faq.a1": "We are building the first version now and expect to launch within the next few months. We will not promise an exact date until we are sure we can hold to it — which is why this page collects sign-ups first. Everyone who signs up gets an e-mail before launch, and the first 50 get a year free.",
   "faq.q2": "Do I have to buy a new scanner?",
   "faq.a2": "Probably not. What you need is a “Scan to E-mail” or SMTP section in the settings, and the machine has to handle SMTP authentication with TLS. Most office models of the last ten years do. Very old machines sometimes handle only outdated encryption — our server will not accept those.",
   "faq.q3": "I am on Microsoft 365 — the printer suddenly stopped sending. Will this help?",
@@ -1753,7 +1752,7 @@ window.SCANINBOX_I18N = {
   "msg.busy": "Too many requests. Please try again in a moment.",
   "msg.failed": "Sending failed. Please try again.",
   "meta.title": "ScanInbox",
-  "meta.desc": "ScanInbox connects your scanner or multifunction printer to e-mail. Press “Scan” — the document is already in your mailbox. Setup in five minutes."
+  "meta.desc": "ScanInbox connects your scanner or multifunction printer to e-mail. Press “Scan” — the document is already in your mailbox. Setup in five minutes. Sign up now: the first 50 get a year free."
  },
  it: {
   "skip": "Vai al modulo di iscrizione",
@@ -1763,23 +1762,20 @@ window.SCANINBOX_I18N = {
   "nav.faq": "FAQ",
   "lang.label": "Lingua della pagina",
   "cta.short": "Iscriviti",
-  "hero.meta1": "servizio inbox.eu",
-  "hero.meta2": "in sviluppo",
-  "hero.meta3": "ai primi 10 — un anno gratis",
   "hero.h1": "Premi «Scansiona» sulla stampante. Il PDF è già <span>nella tua e-mail</span>.",
   "hero.deck": "Il tuo scanner o la tua stampante multifunzione riceve le proprie credenziali SMTP e invia le scansioni direttamente all'indirizzo che indichi. Senza un PC in mezzo, senza chiavetta USB, senza il cloud del produttore. Configurazione: circa cinque minuti, una volta sola.",
+  "hero.offer": "<b>Lascia la tua e-mail: il primo anno è gratis.</b> I primi 50 iscritti ricevono un dispositivo gratis per un anno dal giorno del lancio. Nessuna carta richiesta.",
   "form.label": "Indirizzo e-mail",
   "cta.long": "Iscriviti tra i primi",
   "form.consent": "inbox.eu può contattarmi a proposito di ScanInbox. Conserveremo l'indirizzo e le tue risposte fino al lancio del servizio.",
-  "hero.terms": "10 &euro; all'anno per dispositivo &middot; <em>Iscriversi è gratis</em> &middot; Poche e-mail — prima del lancio e il giorno del lancio",
   "anim.s1": "Scansione pagina…",
   "anim.s2": "Invio all'indirizzo…",
   "anim.s3": "Inviato",
   "anim.doc": "Fattura n. 2026/0412",
   "anim.date": "04/09/2026",
   "anim.pdf": "PDF 1,8 MB",
-  "anim.to": "ufficio@inbox.eu",
   "anim.inbox": "Posta in arrivo",
+  "anim.to": "ufficio@inbox.eu",
   "anim.from": "Scanner — Ingresso",
   "anim.f1": "Fattura_2026-0412.pdf",
   "anim.now": "ora",
@@ -1790,7 +1786,12 @@ window.SCANINBOX_I18N = {
   "anim.old2": "Scanner — Contabilità",
   "anim.f3": "Bolla_2026-0407.pdf",
   "anim.sz3": "2,4 MB",
-  "fig.cap": "<b>Fig. 1</b> — Il dispositivo si autentica sul server SMTP con le proprie credenziali e invia il PDF all’indirizzo che hai indicato. Scrivi la tua e-mail nel modulo e nell’animazione la lettera volerà lì.",
+  "anim.f4": "Verbale_2026-0406.pdf",
+  "anim.f5": "Delega_2026-0403.pdf",
+  "anim.old3": "Scanner — Reception",
+  "anim.f6": "Ricevuta_2026-0402.pdf",
+  "anim.f7": "Preventivo_2026-0401.pdf",
+  "anim.f8": "Protocollo_2026-0331.pdf",
   "m1v": "~5 min",
   "m1": "configurazione una tantum",
   "m2v": "&lt; 1 min",
@@ -1835,21 +1836,6 @@ window.SCANINBOX_I18N = {
   "how.s3.p": "Apri le impostazioni della stampante, vai alla schermata che ti indichiamo e inserisci quello che abbiamo scritto per te. Una volta sola, per sempre: meno di cinque minuti anche la prima volta.",
   "how.s4.h": "4. Scansiona e basta",
   "how.s4.p": "Premi Scan to Email, scegli il tuo indirizzo e, quando la scansione finisce, è già nella tua casella di posta: archiviata automaticamente, sempre ricercabile, in meno di un minuto a documento.",
-  "flow.1": "La tua foto",
-  "flow.2": "L’AI legge il modello",
-  "flow.3": "Configurazione qui sotto",
-  "cfg.h": "Configurazione generata",
-  "cfg.eg": "esempio",
-  "cfg.r1": "Stampante identificata",
-  "cfg.v1": "Canon imageRUNNER 2630i <em>(esempio)</em>",
-  "cfg.r2": "Indirizzo dedicato",
-  "cfg.r3": "Cifratura",
-  "cfg.v3": "SMTP su TLS, generata automaticamente",
-  "cfg.r4": "Allegato",
-  "cfg.v4": "PDF &middot; per ogni scansione",
-  "cfg.r5": "Quello che inserisci tu",
-  "cfg.v5": "Server, porta e questo indirizzo — nient’altro",
-  "cfg.ft": "Questi sono valori di esempio. ScanInbox genera quelli reali per ogni stampante, così la macchina in corridoio non porta mai credenziali che aprono qualcos’altro.",
   "rail.price": "Prezzo",
   "price.h2": "Un prezzo per dispositivo, all'anno",
   "price.unit": "all'anno per dispositivo, IVA inclusa",
@@ -1862,7 +1848,6 @@ window.SCANINBOX_I18N = {
   "price.i3": "<em>Dalla nostra parte i dati restano nell'UE</em> — l'inoltro avviene sull'infrastruttura inbox.eu nell'Unione Europea, in conformità al GDPR. Dove finisce poi la scansione dipende dalla casella di posta che hai scelto.",
   "price.i4": "<em>Macchine con autenticazione SMTP e TLS</em> — in pratica la maggior parte dei modelli da ufficio Canon, HP, Brother, Epson, Kyocera, Xerox, Ricoh, Konica Minolta, Lexmark e Sharp.",
   "price.later": "<span class=\"tag\">più avanti</span> Registro delle scansioni e conferme di consegna.",
-  "price.note": "Il prezzo è quello previsto e il servizio non è ancora acquistabile. Prima del lancio contatteremo tutti gli iscritti, anche se dovesse risultare che il prezzo va cambiato.",
   "rail.signup": "Iscrizione",
   "signup.h2": "Lascia la tua e-mail — il resto sono 20 secondi",
   "signup.p": "Ti scriveremo quando ScanInbox sarà pronto. I primi dieci iscritti ottengono un anno gratis per un dispositivo. Dopo l’iscrizione ti faremo qualche domanda sulle tue macchine: rispondere non è obbligatorio, ma è così che decidiamo quali macchine supportare per prime.",
@@ -1945,23 +1930,20 @@ window.SCANINBOX_I18N = {
   "nav.faq": "FAQ",
   "lang.label": "Langue de la page",
   "cta.short": "S’inscrire",
-  "hero.meta1": "Service inbox.eu",
-  "hero.meta2": "en développement",
-  "hero.meta3": "les 10 premiers — un an offert",
   "hero.h1": "Appuyez sur la touche « Numériser » de l’imprimante. Le PDF est déjà <span>dans votre boîte mail</span>.",
   "hero.deck": "Votre scanner ou votre imprimante multifonction reçoit ses propres identifiants SMTP et envoie les numérisations directement à l’adresse indiquée. Sans ordinateur intermédiaire, sans clé USB, sans cloud du fabricant. La configuration prend environ cinq minutes, une seule fois.",
+  "hero.offer": "<b>Laissez votre e-mail : la première année est gratuite.</b> Les 50 premiers inscrits reçoivent un appareil gratuit pendant un an à partir du lancement. Aucune carte requise.",
   "form.label": "Adresse e-mail",
   "cta.long": "Être parmi les premiers",
   "form.consent": "inbox.eu peut me contacter au sujet de ScanInbox. Nous conserverons votre adresse et vos réponses jusqu’au lancement du service.",
-  "hero.terms": "10 &euro; par appareil et par an &middot; <em>L’inscription est gratuite</em> &middot; Quelques e-mails — avant le lancement et le jour du lancement",
   "anim.s1": "Numérisation de la page…",
   "anim.s2": "Envoi à l’adresse…",
   "anim.s3": "Envoyé",
   "anim.doc": "Facture n° 2026/0412",
   "anim.date": "04/09/2026",
   "anim.pdf": "PDF 1,8 MB",
-  "anim.to": "bureau@inbox.eu",
   "anim.inbox": "Boîte de réception",
+  "anim.to": "bureau@inbox.eu",
   "anim.from": "Scanner — Accueil",
   "anim.f1": "Facture_2026-0412.pdf",
   "anim.now": "à l’instant",
@@ -1972,7 +1954,12 @@ window.SCANINBOX_I18N = {
   "anim.old2": "Scanner — Comptabilité",
   "anim.f3": "Bon_livraison_2026-0407.pdf",
   "anim.sz3": "2,4 MB",
-  "fig.cap": "<b>Fig. 1</b> — L’appareil s’authentifie auprès du serveur SMTP avec ses propres identifiants et envoie le PDF à l’adresse que vous avez indiquée. Saisissez votre adresse dans le formulaire : dans l’animation, le message partira vers elle.",
+  "anim.f4": "Rapport_2026-0406.pdf",
+  "anim.f5": "Procuration_2026-0403.pdf",
+  "anim.old3": "Scanner — Accueil",
+  "anim.f6": "Recu_2026-0402.pdf",
+  "anim.f7": "Devis_2026-0401.pdf",
+  "anim.f8": "Compte-rendu_2026-0331.pdf",
   "m1v": "~5 min",
   "m1": "une seule configuration",
   "m2v": "&lt; 1 min",
@@ -2017,21 +2004,6 @@ window.SCANINBOX_I18N = {
   "how.s3.p": "Ouvrez les réglages de votre imprimante, allez à l’écran exact que nous vous indiquons et saisissez ce que nous avons écrit pour vous. Une fois pour toutes : moins de cinq minutes, même la première fois.",
   "how.s4.h": "4. Numérisez, tout simplement",
   "how.s4.p": "Appuyez sur Scan to Email, choisissez votre adresse : le temps que la numérisation se termine, elle est déjà dans votre boîte mail — archivée automatiquement, toujours consultable, en moins d’une minute par document.",
-  "flow.1": "Votre photo",
-  "flow.2": "L’IA lit le modèle",
-  "flow.3": "Configuration ci-dessous",
-  "cfg.h": "Configuration générée",
-  "cfg.eg": "exemple",
-  "cfg.r1": "Imprimante identifiée",
-  "cfg.v1": "Canon imageRUNNER 2630i <em>(exemple)</em>",
-  "cfg.r2": "Adresse dédiée",
-  "cfg.r3": "Chiffrement",
-  "cfg.v3": "SMTP sur TLS, généré automatiquement",
-  "cfg.r4": "Pièce jointe",
-  "cfg.v4": "PDF &middot; par numérisation",
-  "cfg.r5": "Ce que vous saisissez",
-  "cfg.v5": "Le serveur, le port et cette adresse — rien d’autre",
-  "cfg.ft": "Ce sont des valeurs d’exemple. ScanInbox génère les vraies pour chaque imprimante, de sorte que la machine du couloir ne contient jamais d’identifiants qui ouvrent autre chose.",
   "rail.price": "Prix",
   "price.h2": "Un seul prix par appareil et par an",
   "price.unit": "par appareil et par an, TVA comprise",
@@ -2044,7 +2016,6 @@ window.SCANINBOX_I18N = {
   "price.i3": "<em>De notre côté, les données restent dans l’UE</em> — l’acheminement se fait sur l’infrastructure inbox.eu, dans l’Union européenne, conformément au RGPD. Ce qu’il advient ensuite de la numérisation dépend de la boîte mail que vous avez choisie.",
   "price.i4": "<em>Les machines avec authentification SMTP et TLS</em> — en pratique, la plupart des modèles de bureau Canon, HP, Brother, Epson, Kyocera, Xerox, Ricoh, Konica Minolta, Lexmark et Sharp.",
   "price.later": "<span class=\"tag\">plus tard</span> Journal des numérisations et accusés de remise.",
-  "price.note": "Ce prix est prévisionnel et le service n’est pas encore en vente. Avant le lancement, nous écrirons à tous les inscrits — y compris si le prix doit finalement changer.",
   "rail.signup": "Inscription",
   "signup.h2": "Laissez votre e-mail — le reste prend 20 secondes",
   "signup.p": "Nous vous écrirons quand ScanInbox sera prêt. Les dix premiers inscrits obtiennent un an gratuit pour un appareil. Après l’inscription, nous poserons quelques questions sur vos machines — y répondre n’est pas obligatoire, mais c’est ce qui détermine quelles machines nous prenons en charge en premier.",
@@ -2127,23 +2098,20 @@ window.SCANINBOX_I18N = {
   "nav.faq": "FAQ",
   "lang.label": "Sprache der Seite",
   "cta.short": "Vormerken",
-  "hero.meta1": "Dienst von inbox.eu",
-  "hero.meta2": "in Entwicklung",
-  "hero.meta3": "die ersten 10 – ein Jahr kostenlos",
   "hero.h1": "Drücken Sie am Drucker „Scannen“. Das PDF ist schon <span>in Ihrem Postfach</span>.",
   "hero.deck": "Ihr Scanner oder Multifunktionsdrucker bekommt eigene SMTP-Zugangsdaten und sendet Scans direkt an die Adresse, die Sie angeben. Kein PC dazwischen, kein USB-Stick, keine Hersteller-Cloud. Einrichtung – etwa fünf Minuten, einmalig.",
+  "hero.offer": "<b>E-Mail hinterlassen – das erste Jahr ist kostenlos.</b> Die ersten 50 Anmeldungen erhalten ein Gerät ein Jahr lang kostenlos ab dem Starttag. Keine Karte nötig.",
   "form.label": "E-Mail-Adresse",
   "cta.long": "Jetzt vormerken",
   "form.consent": "inbox.eu darf mich zu ScanInbox kontaktieren. Wir speichern die Adresse und Ihre Antworten, bis der Dienst gestartet ist.",
-  "hero.terms": "10 &euro; pro Gerät und Jahr &middot; <em>Vormerken ist kostenlos</em> &middot; Ein paar E-Mails – vor dem Start und am Starttag",
   "anim.s1": "Seite wird gescannt…",
   "anim.s2": "Wird gesendet…",
   "anim.s3": "Gesendet",
   "anim.doc": "Rechnung Nr. 2026/0412",
   "anim.date": "04.09.2026",
   "anim.pdf": "PDF 1,8 MB",
-  "anim.to": "buero@inbox.eu",
   "anim.inbox": "Posteingang",
+  "anim.to": "buero@inbox.eu",
   "anim.from": "Scanner – Empfang",
   "anim.f1": "Rechnung_2026-0412.pdf",
   "anim.now": "gerade eben",
@@ -2154,7 +2122,12 @@ window.SCANINBOX_I18N = {
   "anim.old2": "Scanner – Buchhaltung",
   "anim.f3": "Lieferschein_2026-0407.pdf",
   "anim.sz3": "2,4 MB",
-  "fig.cap": "<b>Abb. 1</b> – Das Gerät meldet sich mit eigenen Zugangsdaten am SMTP-Server an und sendet das PDF an die Adresse, die Sie angeben. Tragen Sie Ihre E-Mail-Adresse ins Formular ein, dann fliegt die Nachricht in der Animation dorthin.",
+  "anim.f4": "Bericht_2026-0406.pdf",
+  "anim.f5": "Vollmacht_2026-0403.pdf",
+  "anim.old3": "Scanner — Empfang",
+  "anim.f6": "Quittung_2026-0402.pdf",
+  "anim.f7": "Angebot_2026-0401.pdf",
+  "anim.f8": "Protokoll_2026-0331.pdf",
   "m1v": "~5 Min.",
   "m1": "einmalige Einrichtung",
   "m2v": "&lt; 1 Min.",
@@ -2199,21 +2172,6 @@ window.SCANINBOX_I18N = {
   "how.s3.p": "Öffnen Sie die Einstellungen Ihres Druckers, gehen Sie zu genau der Maske, die wir Ihnen nennen, und tragen Sie ein, was wir für Sie geschrieben haben. Einmal, für immer – unter fünf Minuten auch beim ersten Mal.",
   "how.s4.h": "4. Einfach scannen",
   "how.s4.p": "Drücken Sie Scan to Email, wählen Sie Ihre Adresse, und wenn der Scan fertig ist, liegt er schon in Ihrem Postfach – automatisch archiviert, jederzeit durchsuchbar, in unter einer Minute pro Dokument.",
-  "flow.1": "Ihr Foto",
-  "flow.2": "Die KI liest das Modell",
-  "flow.3": "Konfiguration unten",
-  "cfg.h": "Erzeugte Konfiguration",
-  "cfg.eg": "Beispiel",
-  "cfg.r1": "Drucker erkannt",
-  "cfg.v1": "Canon imageRUNNER 2630i <em>(Beispiel)</em>",
-  "cfg.r2": "Eigene Adresse",
-  "cfg.r3": "Verschlüsselung",
-  "cfg.v3": "SMTP über TLS, automatisch erzeugt",
-  "cfg.r4": "Anhang",
-  "cfg.v4": "PDF &middot; pro Scan",
-  "cfg.r5": "Was Sie eintragen",
-  "cfg.v5": "Server, Port und diese Adresse – sonst nichts",
-  "cfg.ft": "Das sind Beispielwerte. Die echten erzeugt ScanInbox für jeden Drucker einzeln, damit das Gerät im Flur nie Zugangsdaten trägt, die noch etwas anderes öffnen.",
   "rail.price": "Preis",
   "price.h2": "Ein Preis pro Gerät und Jahr",
   "price.unit": "pro Gerät und Jahr, inkl. MwSt.",
@@ -2226,7 +2184,6 @@ window.SCANINBOX_I18N = {
   "price.i3": "<em>Bei uns bleiben die Daten in der EU</em> – die Übermittlung läuft in der Infrastruktur von inbox.eu in der Europäischen Union, nach DSGVO. Wohin der Scan danach geht, bestimmt das Postfach, das Sie wählen.",
   "price.i4": "<em>Geräte mit SMTP-Authentifizierung und TLS</em> – in der Praxis die meisten Büromodelle von Canon, HP, Brother, Epson, Kyocera, Xerox, Ricoh, Konica Minolta, Lexmark und Sharp.",
   "price.later": "<span class=\"tag\">später</span> Scan-Protokoll und Zustellbestätigungen.",
-  "price.note": "Der Preis ist geplant, und der Dienst ist noch nicht erhältlich. Vor dem Start sprechen wir alle Angemeldeten an – auch dann, wenn sich zeigt, dass der Preis anders ausfallen muss.",
   "rail.signup": "Anmeldung",
   "signup.h2": "E-Mail hinterlassen – der Rest dauert 20 Sekunden",
   "signup.p": "Wir schreiben Ihnen, sobald ScanInbox fertig ist. Die ersten zehn Anmeldungen bekommen ein Jahr kostenlos für ein Gerät. Nach der Anmeldung stellen wir ein paar Fragen zu Ihren Geräten – die Antworten sind freiwillig, aber sie entscheiden, welche Geräte wir zuerst unterstützen.",

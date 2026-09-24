@@ -29,9 +29,9 @@ Kas mainījies pēc 8. septembra pārskatīšanas ar komandu:
   soļa savs laiks.
 - **Uzstādīšana** ir pārņemta 1:1 no kolēģa lapas: ievads par to, kā cilvēki
   līdz šai problēmai nonāk, tad četri soļi vertikālā sarakstā (ikona kolonnā,
-  numurs virsrakstā, laiks ieaudzēts tekstā, nevis atsevišķā nozīmītē), un
-  bultiņu josla, kas nodod lasītāju piekļuves datu tabulai. Tās pašas klases
-  un tās pašas CSS vērtības.
+  numurs virsrakstā, laiks ieaudzēts tekstā, nevis atsevišķā nozīmītē). Tās
+  pašas klases un tās pašas CSS vērtības. Bultiņu josla un piekļuves datu
+  tabula, kas sekoja soļiem, 24.09. ir noņemtas — to vietā ir pieteikšanās poga.
 - **Cena** ir skaitlis: 10 € gadā par ierīci, pirmajiem 10 — gads bez maksas.
 - **BUJ** ir akordeons ar 14 jautājumiem, no kuriem daļa ir tehniska un tur
   ir SEO dēļ. Divi aizgūti no kolēģu lapām: «Kas ir ScanInbox?» ievadam un

@@ -100,6 +100,23 @@ Sadaļa «Kā tas strādā» — virsraksts, ievads, visi četri soļi, ikonas, 
 josla un tabula — ir **burtiski nokopēta** no nimda5 versijas pēc tiešas
 pasūtītāja prasības, kas atkārtota divreiz.
 
+**2026-09-24 — tabula izmesta.** Pēc Jean pārskata «Ģenerētā konfigurācija»
+(bultiņu josla + tabula) ir noņemta: tehniska, gara, un neviens pieteikumu
+dēļ to neprasa. Tās vietā — tā pati CTA poga (`cta.long`) kā hero un cenā.
+Soļi un ievads joprojām ir 1:1 no nimda5.
+
+**Viena CTA visā lapā (2026-09-24, angļu versija pirmā).** Katra sadaļa ved uz
+vienu darbību — «Claim your first year free»: `hero.offer` rinda virs formas,
+`cta.long` uz hero/kā-strādā/cenas/noslēguma pogām, `cta.short` uz pieteikšanās
+formas un doka. Latviešu, itāļu, franču un vācu esošie teksti **vēl nav**
+pielāgoti — tikai jaunā atslēga `hero.offer` ir visās valodās.
+
+**«Pirmie 10» → «pirmie 50» (2026-09-24, Jean).** Angļu versijā un `hero.offer`
+visās valodās piedāvājums tagad ir pirmajiem **50**. Latviešu, itāļu, franču un
+vācu vecie teksti (cena, pieteikšanās, BUJ) joprojām saka «desmit» — tas
+jālabo tulkošanas gājienā, citādi lapas savā starpā nesakrīt. Izņemts arī hero
+meta josla (`hero.meta1–3`) un `price.note`.
+
 **Tāpēc lapa sola AI printera atpazīšanu no bildes, kā ScanInbox nav.** Tā ir
 nimda produkta ideja. Validācijas lapai tas ir pieļaujams tests (kājenē skaidri
 rakstīts, ka pakalpojums nav pieejams), bet, ja kāds prasa to noņemt vai maina
@@ -129,6 +146,17 @@ Visas keyframes ir procentos pret to, tāpēc takti nevar aizpeldēt.
 
 Takti: skenē 5–27 % → sūta 33–53 % → nolaižas 54–60 % → atmaksa 60–88 % →
 atiestate 88–100 %. Mainot vienu, jāpārbauda kaimiņi.
+
+**Izkārtojums (2026-09-24, Jean):** figūra ir `container-type:inline-size`; no
+28rem platuma `.stage` ir trīs kolonnas — iekārta | vads | iesūtne — un vēstule
+pārlido spraugu. Šaurāk viss ir viens stabs un vads ir **vertikāls** (tas pats
+`.wire__line`, pagriezts 90°, aploksne pagriezta atpakaļ). Adreses čips
+`#wire-to` tagad sēž iesūtnes galvenē, ne vada galā — JS to joprojām atrod pēc
+id. `.inbox__list` ir fiksēti trīs rindas, lai figūra cikla vidū nemaina
+augstumu. `<figcaption>` (fig.cap), `hero.terms` rinda zem formas un «SMTP / 465 /
+SSL» statusa joslā ir izņemti. Figūras augstumu nosaka `.sheet{min-height}` (19rem
+blakus, 12rem stabā) — iesūtnes saraksts (`anim.f1–f8`) tikai aizpilda un apgriežas,
+nekad nestiepj.
 
 Pārbaudīt var, pauzējot un skrollējot animāciju:
 
